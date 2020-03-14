@@ -77,7 +77,8 @@ public class InterpreterServiceImpl implements InterpreterService {
 	}
 
 	private ExecutionContext getContext(InterpreterRequest interpreterRequest) {
-		return sessionContexts.computeIfAbsent(interpreterRequest.getSessionId(), key -> buildContext(interpreterRequest.getLanguage()));
+		return sessionContexts.computeIfAbsent(interpreterRequest.getSessionId().concat(interpreterRequest.getLanguage()).toLowerCase(), 
+				key -> buildContext(interpreterRequest.getLanguage()));
 	}
 
 	private ExecutionContext buildContext(String language) {
